@@ -43,6 +43,11 @@ const blogPostEditBoxSelector = '.e2e-test-blog-post-edit-box';
 const listOfBlogsInBlogDashboard = '.blog-dashboard-tile-content';
 const blogPostTitlePage = '.e2e-test-blog-post-title';
 const blogPostTitleSelector = '.e2e-test-blog-post-tile-title';
+const updateUsernameIconSelector = '.e2e-test-update-blog-editor-username';
+const updateBioIconSelector = '.e2e-test-update-blog-editor-bio';
+const usernameInBlogDashboardSelector = '.e2e-test-username-visible';
+const bioInBlogDashboardSelector = '.e2e-test-bio-visible';
+const authorDetailsModalTitleSelector = '.e2e-test-modal-header';
 
 // Selectors for the blog post editor.
 const blogTitleInput = 'input.e2e-test-blog-post-title-field';
@@ -276,6 +281,46 @@ export class BlogPostEditor extends BaseUser {
     } else {
       await this.expectElementToBeClickable(authorBioSaveButton);
     }
+  }
+
+  /**
+   * Opens the modal for editing the blog author username.
+   */
+  async clickOnUpdateUsernameIcon(): Promise<void> {
+    await this.expectElementToBeVisible(updateUsernameIconSelector);
+    await this.clickOnElementWithSelector(updateUsernameIconSelector);
+    await this.expectElementContentToContain(
+      authorDetailsModalTitleSelector,
+      'Add your Author Name and Biography:'
+    );
+  }
+
+  /**
+   * Opens the modal for editing the blog author bio.
+   */
+  async clickOnUpdateBioIcon(): Promise<void> {
+    await this.expectElementToBeVisible(updateBioIconSelector);
+    await this.clickOnElementWithSelector(updateBioIconSelector);
+    await this.expectElementContentToContain(
+      authorDetailsModalTitleSelector,
+      'Add your Author Name and Biography:'
+    );
+  }
+
+  /**
+   * Checks that the expected username is visible in the blog dashboard.
+   * @param {string} username - The expected username.
+   */
+  async expectUsernameInBlogDashboardToBe(username: string): Promise<void> {
+    await this.expectTextContentToBe(usernameInBlogDashboardSelector, username);
+  }
+
+  /**
+   * Checks that the expected bio is visible in the blog dashboard.
+   * @param {string} bio - The expected bio.
+   */
+  async expectBioInBlogDashboardToBe(bio: string): Promise<void> {
+    await this.expectTextContentToBe(bioInBlogDashboardSelector, bio);
   }
 
   /**
